@@ -22,21 +22,49 @@ This project is designed to demonstrate SQL skills and techniques typically used
 - **Table Creation**: A table named `retail_sales` is created to store the sales data. The table structure includes columns for transaction ID, sale date, sale time, customer ID, gender, age, product category, quantity sold, price per unit, cost of goods sold (COGS), and total sale amount.
 
 ```sql
-CREATE DATABASE p1_retail_db;
+/*
+=============================================================
+Create Database 
+=============================================================
+Script Purpose:
+    This script creates a new database named 'DataWarehouse' after checking if it already exists. 
+    If the database exists, it is dropped and recreated. Additionally.
+	
+WARNING:
+    Running this script will drop the entire 'DataWarehouse' database if it exists. 
+    All data in the database will be permanently deleted. Proceed with caution 
+    and ensure you have proper backups before running this script.
+*/
+USE master;
+GO
+
+-- Drop and recreate the 'DataWarehouse_1' database
+IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse_1')
+BEGIN
+    ALTER DATABASE DataWarehouse_1 SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE DataWarehouse_1;
+END;
+GO
+
+-- Create the 'DataWarehouse_1' database
+CREATE DATABASE DataWarehouse_1;
+GO
+
+USE DataWarehouse_1;
 
 CREATE TABLE retail_sales
 (
     transactions_id INT PRIMARY KEY,
-    sale_date DATE,	
-    sale_time TIME,
-    customer_id INT,	
-    gender VARCHAR(10),
-    age INT,
-    category VARCHAR(35),
-    quantity INT,
-    price_per_unit FLOAT,	
-    cogs FLOAT,
-    total_sale FLOAT
+    sale_date       DATE,	
+    sale_time       TIME,
+    customer_id     INT,	
+    gender          VARCHAR(10),
+    age             INT,
+    category        VARCHAR(35),
+    quantity        INT,
+    price_per_unit  FLOAT,	
+    cogs            FLOAT,
+    total_sale      FLOAT
 );
 ```
 
