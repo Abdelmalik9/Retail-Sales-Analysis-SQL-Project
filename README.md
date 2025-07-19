@@ -38,34 +38,49 @@ WARNING:
 USE master;
 GO
 
--- Drop and recreate the 'DataWarehouse_1' database
-IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse_1')
+-- Drop and recreate the 'DataWarehouse' database
+IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse')
 BEGIN
-    ALTER DATABASE DataWarehouse_1 SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE DataWarehouse_1;
+    ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE DataWarehouse;
 END;
 GO
 
--- Create the 'DataWarehouse_1' database
-CREATE DATABASE DataWarehouse_1;
+-- Create the 'DataWarehouse' database
+CREATE DATABASE DataWarehouse;
 GO
 
-USE DataWarehouse_1;
+USE DataWarehouse;
 
-CREATE TABLE retail_sales
-(
-    transactions_id INT PRIMARY KEY,
-    sale_date       DATE,	
-    sale_time       TIME,
-    customer_id     INT,	
-    gender          VARCHAR(10),
-    age             INT,
-    category        VARCHAR(35),
-    quantity        INT,
-    price_per_unit  FLOAT,	
-    cogs            FLOAT,
-    total_sale      FLOAT
+/*
+===============================================================================
+DDL Script: Create Table
+===============================================================================
+Script Purpose:
+    This script creates a table, dropping existing table 
+    if it's already exist.
+	  Run this script to re-define the DDL structure of the Table
+===============================================================================
+*/
+
+IF OBJECT_ID('retail_sales', 'U') IS NOT NULL
+    DROP TABLE retail_sales;
+GO
+
+CREATE TABLE retail_sales (
+	    transactions_id INT PRIMARY KEY,
+	    sale_date       DATE,	
+	    sale_time       TIME,
+	    customer_id     INT,	
+	    gender          VARCHAR(10),
+	    age             INT,
+	    category        VARCHAR(35),
+	    quantity        INT,
+	    price_per_unit  FLOAT,	
+	    cogs            FLOAT,
+	    total_sale      FLOAT
 );
+
 ```
 
 ### 2. Data Exploration & Cleaning
