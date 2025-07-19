@@ -80,6 +80,70 @@ CREATE TABLE retail_sales (
 	    total_sale      FLOAT
 );
 
+/*
+===============================================================================
+Stored Procedure: Load Data (Source -> Table)
+===============================================================================
+Script Purpose:
+    This stored procedure loads data into the Table from external CSV files. 
+    It performs the following actions:
+    - Truncates the table before loading data.
+    - Uses the `BULK INSERT` command to load data from csv File to the table.
+
+Parameters:
+    None. 
+	  This stored procedure does not accept any parameters or return any values.
+
+Usage Example:
+    EXEC dbo.load_dbo;
+===============================================================================
+*/
+
+EXEC dbo.load_dbo;
+
+CREATE OR ALTER PROCEDURE dbo.load_dbo AS
+BEGIN
+	DECLARE @start_time DATETIME, @end_time DATETIME, @batch_start_time DATETIME, @batch_end_time DATETIME; 
+	BEGIN TRY
+		SET @batch_start_time = GETDATE();
+		PRINT '================================================';
+		PRINT 'Loading dbo Layer';
+		PRINT '================================================';
+
+		PRINT '------------------------------------------------';
+		PRINT 'Loading retail_sales Table';
+		PRINT '------------------------------------------------';
+
+		SET @start_time = GETDATE();
+		PRINT '>> Truncating Table: dbo.retail_sales';
+		TRUNCATE TABLE dbo.retail_sales;
+		PRINT '>> Inserting Data Into: dbo.retail_sales';
+		BULK INSERT dbo.retail_sales
+		FROM 'C:\Users\ASUS\Desktop\New folder (2)\SQL - Retail Sales Analysis_utf .csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK
+		);
+		SET @end_time = GETDATE();
+		PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+		PRINT '>> -------------';
+		SET @batch_end_time = GETDATE();
+		PRINT '=========================================='
+		PRINT 'Loading dbo Layer is Completed';
+        PRINT '   - Total Load Duration: ' + CAST(DATEDIFF(SECOND, @batch_start_time, @batch_end_time) AS NVARCHAR) + ' seconds';
+		PRINT '=========================================='
+	END TRY
+	BEGIN CATCH
+		PRINT '=========================================='
+		PRINT 'ERROR OCCURED DURING LOADING dbo LAYER'
+		PRINT 'Error Message' + ERROR_MESSAGE();
+		PRINT 'Error Message' + CAST (ERROR_NUMBER() AS NVARCHAR);
+		PRINT 'Error Message' + CAST (ERROR_STATE() AS NVARCHAR);
+		PRINT '=========================================='
+	END CATCH
+END
+
 ```
 
 ### 2. Data Exploration & Cleaning
